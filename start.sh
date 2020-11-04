@@ -16,6 +16,7 @@ if [ ! -f /config/filebot.conf ]
 		chmod a+w /config/filebot.conf
 	else
 		echo "$(ts) config/filebot.conf Exists"
+		chmod a+w /config/filebot.conf
 fi
 
 echo "$(ts) Checking for config/filebot.sh"
@@ -23,9 +24,10 @@ if [ ! -f /config/filebot.sh ]
 	then
 		echo "$(ts) Creating /config/filebot.sh"
 		cp /files/filebot.sh /config/filebot.sh
-		chmod a+w /config/filebot.conf
+		chmod a+wx /config/filebot.sh
 	else
 		echo "$(ts) config/filebot.sh Exists"
+		chmod a+wx /config/filebot.sh
 fi
 
 # Run once at the start
