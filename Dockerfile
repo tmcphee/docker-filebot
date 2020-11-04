@@ -36,7 +36,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 ENV WATCH_DIR /input
-ENV COMMAND "bash /files/filebot.sh"
+ENV COMMAND "bash /config/filebot.sh"
 ENV IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING 0
 
 # Create dir to keep things tidy. Make sure it's readable by $USER_ID
