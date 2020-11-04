@@ -1,0 +1,8 @@
+setuptools
+watchdog
+PyYAML
+argh
+argparse
+pathtools
+
+
