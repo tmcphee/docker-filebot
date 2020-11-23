@@ -7,20 +7,20 @@ function ts {
 #-----------------------------------------------------------------------------------------------------------------------
 #						ENVIROMENT VARIABLES
 #-----------------------------------------------------------------------------------------------------------------------
-IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
+export IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
 
-USER_ID=99
-GROUP_ID=100
-UMASK=0000
+export USER_ID=99
+export GROUP_ID=100
+export UMASK=0000
 
-SETTLE_DURATION=10
-MAX_WAIT_TIME=01:00
-MIN_PERIOD=05:00
+export SETTLE_DURATION=10
+export MAX_WAIT_TIME=01:00
+export MIN_PERIOD=05:00
 
-DEBUG=0
+export DEBUG=0
 
-COMMAND "/config/filebot.sh"
-WATCH_DIR /input
+export COMMAND "/config/filebot.sh"
+export WATCH_DIR /input
 
 #-----------------------------------------------------------------------------------------------------------------------
 
