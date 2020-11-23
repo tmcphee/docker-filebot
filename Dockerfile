@@ -56,5 +56,8 @@ RUN chmod a+x /files/start.sh
 RUN chmod a+w /files/filebot.conf
 RUN chmod +x /files/monitor.py
 
+RUN wget --no-check-certificate -q -O /files/runas.sh 'https://raw.githubusercontent.com/coppit/docker-inotify-command/1d4b941873b670525fd159dcb9c01bb2570b0565/runas.sh'
+RUN chmod +x /files/runas.sh
+
 CMD ["./files/start.sh"]
 
