@@ -6,6 +6,14 @@ function ts {
 
 #-----------------------------------------------------------------------------------------------------------------------
 
+IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
+
+USER_ID=99
+GROUP_ID=100
+UMASK=0000
+COMMAND "/config/filebot.sh"
+WATCH_DIR /input
+
 echo "$(ts) Starting FileBot container"
 
 echo "$(ts) Checking for config/filebot.conf"
