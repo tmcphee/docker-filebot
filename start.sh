@@ -32,7 +32,7 @@ fi
 
 # Run once at the start
 echo "$(ts) Running FileBot auto-renamer on startup"
-/config/filebot.sh
+/files/runas.sh $USER_ID $GROUP_ID $UMASK /config/filebot.sh
 
 # Start monitoring
 /files/monitor.py /config/filebot.conf
