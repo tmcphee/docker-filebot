@@ -18,6 +18,8 @@ RUN apt-get install python3 -y
 RUN apt-get install python3-pip -y
 RUN python3 --version
 
+RUN apt-get install libmediainfo0v5 -y
+
 #--------------------------------------------------------------
 
 RUN pip3 install --upgrade pip 
