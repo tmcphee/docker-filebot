@@ -10,7 +10,7 @@ function ts {
 export IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
 
 #Set mask of folder after each run
-export UMASK=0000
+export UMASK=0755
 
 export SETTLE_DURATION=10
 export MAX_WAIT_TIME=01:00
@@ -46,6 +46,9 @@ if [ ! -f /config/filebot.sh ]
 		echo "$(ts) config/filebot.sh Exists"
 		chmod a+wx /config/filebot.sh
 fi
+
+# Set User mask
+umask $UMASK
 
 # Run once at the start
 echo "$(ts) Running FileBot auto-renamer on startup"
