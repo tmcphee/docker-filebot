@@ -41,8 +41,8 @@ def to_seconds(timestr):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def read_config(config_file):
-    config_file = remove_linefeeds(config_file)
+def read_config():
+    #config_file = remove_linefeeds(config_file)
 
     # Shenanigans to read docker env vars, and the bash format config file. I didn't want to ask them to change their
     # config files.
@@ -242,9 +242,9 @@ def block_until_min_period(min_period, last_command_run):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-config_file = sys.argv[1]
+#config_file = sys.argv[1]
 
-name = os.path.splitext(os.path.basename(config_file))[0]
+name = os.path.splitext(os.path.basename())[0]
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] {}: %(message)s'.format(name), datefmt='%Y-%m-%d %H:%M:%S')
 
