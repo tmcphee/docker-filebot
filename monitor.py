@@ -235,7 +235,7 @@ def block_until_min_period(min_period, last_command_run):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] {}: %(message)s'.format(name), datefmt='%Y-%m-%d %H:%M:%S')
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] {}: %(message)s'.format("FileBot"), datefmt='%Y-%m-%d %H:%M:%S')
 
 args = read_config()
 
