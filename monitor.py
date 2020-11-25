@@ -235,13 +235,10 @@ def block_until_min_period(min_period, last_command_run):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-#config_file = sys.argv[1]
-
-name = os.path.splitext(os.path.basename())[0]
-
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] {}: %(message)s'.format(name), datefmt='%Y-%m-%d %H:%M:%S')
 
-args = read_config(config_file)
+name = "FileBot"
+args = read_config()
 
 #args["DEBUG"] = True
 
