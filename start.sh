@@ -18,8 +18,8 @@ export MIN_PERIOD=05:00
 
 export DEBUG=0
 
-export COMMAND "/config/filebot.sh"
-export WATCH_DIR /input
+export COMMAND="/config/filebot.sh"
+export WATCH_DIR="/input"
 
 #-----------------------------------------------------------------------------------------------------------------------
 
