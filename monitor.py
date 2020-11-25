@@ -52,7 +52,8 @@ def read_config():
     string = pipe.stdout.read().decode('ascii')
     base_env = json.loads(string)
     
-    env = ""
+    empty = {"empty": empty}
+    env = json.dumps(empty)
     env.update(base_env)
 
     class Args:
