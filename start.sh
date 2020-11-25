@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check if script is already stared
+if [[ -z "${STARTED}" ]]; then
+	exit
+fi
+
+export STARTED=1
+
 function ts {
   echo [`date '+%b %d %X'`]
 }
