@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Check if script is already stared
-if [[ -z "${STARTED}" ]]; then
-	exit
+if [ -v "${STARTED}" ]; then
+	exit 0
 fi
 
 export STARTED=1
