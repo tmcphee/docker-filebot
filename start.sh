@@ -47,4 +47,4 @@ echo "$(ts) Running FileBot auto-renamer on startup"
 /config/filebot.sh
 
 # Start monitoring
-/files/monitor.py /config/filebot.conf
+/files/monitor.py
