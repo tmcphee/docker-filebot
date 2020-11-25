@@ -10,7 +10,7 @@ function ts {
 export IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
 
 #Set mask of folder after each run
-export UMASK=0666
+export UMASK=0000
 
 export USER_ID=99
 export GROUP_ID=100
