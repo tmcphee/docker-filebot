@@ -190,8 +190,8 @@ def run_command(args, event_handler):
     logging.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
 
     event_handler.enable_monitoring(not args.ignore_events_while_command_is_running)
-    returncode = subprocess.call([RUNAS, args.user_id, args.group_id, args.umask, args.command])
-    #returncode = subprocess.call([args.command])
+    #returncode = subprocess.call([RUNAS, args.user_id, args.group_id, args.umask, args.command])
+    returncode = subprocess.call([args.command])
     event_handler.enable_monitoring(True)
 
     logging.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
