@@ -237,7 +237,6 @@ def block_until_min_period(min_period, last_command_run):
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] {}: %(message)s'.format(name), datefmt='%Y-%m-%d %H:%M:%S')
 
-name = "FileBot"
 args = read_config()
 
 #args["DEBUG"] = True
@@ -245,8 +244,7 @@ args = read_config()
 if args.debug:
     logging.getLogger().setLevel(logging.DEBUG)
 
-
-logging.info("Starting monitor for %s", name)
+logging.info("Starting monitor for FileBot")
 
 # Launch the watchdog
 event_handler = ModifyHandler()
