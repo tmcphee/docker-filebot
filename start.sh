@@ -12,6 +12,9 @@ export IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING=0
 #Set mask of folder after each run
 export UMASK=0755
 
+export USER_ID=99
+export GROUP_ID=100
+
 export SETTLE_DURATION=10
 export MAX_WAIT_TIME=01:00
 export MIN_PERIOD=05:00
