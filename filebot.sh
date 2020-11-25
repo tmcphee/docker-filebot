@@ -24,14 +24,6 @@ MOVIE_FORMAT="Movies/{n.$QUOTE_FIXER} {' CD'+pi}"
 # TV Shows/Game of Thrones/Special/Game of Thrones - S00E11 - A Day in the Life.mp4
 SERIES_FORMAT="TV Shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{n} - {episode.special ? 'S00E'+special.pad(2) : s00e00} - {t.${QUOTE_FIXER}.replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}"
 
-. /files/filebot.conf
-
-if [ "$SUBTITLE_LANG" == "" ];then
-  SUBTITLE_OPTION=""
-else
-  SUBTITLE_OPTION="subtitles=$SUBTITLE_LANG"
-fi
-
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Used to detect old versions of this script
