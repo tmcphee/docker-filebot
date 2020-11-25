@@ -44,14 +44,9 @@ chmod a+rwX /files/scripts
 RUN wget -O - https://github.com/barry-allen07/FB-Mod-Scripts/archive/master.tar.gz | tar xz -C /files/scripts --strip=1 "FB-Mod-Scripts-master" 
 
 # Add scripts. Make sure everything is executable
-COPY start.sh monitor.sh filebot.sh filebot.conf monitor.py /files/
+COPY start.sh monitor.sh filebot.sh monitor.py /files/
 RUN chmod a+x /files/start.sh
-RUN chmod a+w /files/filebot.conf
 RUN chmod +x /files/monitor.py
-
-# Download the Coppit runas
-RUN wget --no-check-certificate -q -O /files/runas.sh 'https://raw.githubusercontent.com/coppit/docker-inotify-command/1d4b941873b670525fd159dcb9c01bb2570b0565/runas.sh'
-RUN chmod +x /files/runas.sh
 
 CMD ["./files/start.sh"]
 
