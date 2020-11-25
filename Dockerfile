@@ -48,5 +48,5 @@ COPY start.sh monitor.sh filebot.sh monitor.py /files/
 RUN chmod a+x /files/start.sh
 RUN chmod +x /files/monitor.py
 
-CMD ["./files/start.sh"]
+ENTRYPOINT ["./files/start.sh"]
 
