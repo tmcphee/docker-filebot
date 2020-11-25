@@ -51,14 +51,7 @@ def read_config():
     pipe = subprocess.Popen(['/bin/bash', '-c', dump_command], stdout=subprocess.PIPE)
     string = pipe.stdout.read().decode('ascii')
     base_env = json.loads(string)
-'''
-    source_command = 'source {}'.format(config_file)
-    pipe = subprocess.Popen(['/bin/bash', '-c', 'set -a && {} && {}'.format(source_command,dump_command)],
-        stdout=subprocess.PIPE)
-    string = pipe.stdout.read().decode('ascii')
-    config_env = json.loads(string)
-
-    env = config_env.copy()'''
+    
     env = ""
     env.update(base_env)
 
