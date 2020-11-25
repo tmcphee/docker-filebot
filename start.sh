@@ -25,17 +25,6 @@ export WATCH_DIR /input
 
 echo "$(ts) Starting FileBot container"
 
-echo "$(ts) Checking for config/filebot.conf"
-if [ ! -f /config/filebot.conf ]
-	then
-		echo "$(ts) Creating /config/filebot.conf"
-		cp /files/filebot.conf /config/filebot.conf
-		chmod a+w /config/filebot.conf
-	else
-		echo "$(ts) config/filebot.conf Exists"
-		chmod a+w /config/filebot.conf
-fi
-
 echo "$(ts) Checking for config/filebot.sh"
 if [ ! -f /config/filebot.sh ]
 	then
