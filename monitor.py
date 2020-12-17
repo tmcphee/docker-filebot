@@ -54,6 +54,9 @@ def read_config():
     
     empty = {"empty": "empty"}
     env = json.dumps(empty)
+    
+    env = config_env.copy()
+    env.update(base_env)
 
     class Args:
         pass
