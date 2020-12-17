@@ -61,7 +61,7 @@ def read_config():
     class Args:
         pass
     
-    env["WATCH_DIR"] = os.environ["WATCH_DIR"]
+    '''env["WATCH_DIR"] = os.environ["WATCH_DIR"]
     env["SETTLE_DURATION"] = os.environ["SETTLE_DURATION"]
     env["MAX_WAIT_TIME"] = os.environ["MAX_WAIT_TIME"]
     env["MIN_PERIOD"] = os.environ["MIN_PERIOD"]
@@ -69,7 +69,8 @@ def read_config():
     env["GROUP_ID"] = os.environ["GROUP_ID"]
     env["UMASK"] = os.environ["UMASK"]
     env["DEBUG"] = os.environ["DEBUG"]
-    env["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"] = os.environ["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"]
+    env["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"] = os.environ["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"]'''
+    env = json.dumps(dict(os.environ))
     
 
     args = Args()
