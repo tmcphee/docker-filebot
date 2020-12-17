@@ -53,7 +53,7 @@ def read_config():
     base_env = json.loads(string)
     
     empty = {"empty": "empty"}
-    env = json.dumps(empty)
+    config_env = json.dumps(empty)
     
     env = config_env.copy()
     env.update(base_env)
