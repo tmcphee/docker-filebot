@@ -46,7 +46,7 @@ def read_config(config_file):
 
     # Shenanigans to read docker env vars, and the bash format config file. I didn't want to ask them to change their
     # config files.
-    dump_command = '/usr/bin/python3 -c "import os, json;print(json.dumps(dict(os.environ)))"'
+    '''dump_command = '/usr/bin/python3 -c "import os, json;print(json.dumps(dict(os.environ)))"'
 
     pipe = subprocess.Popen(['/bin/bash', '-c', dump_command], stdout=subprocess.PIPE)
     string = pipe.stdout.read().decode('ascii')
@@ -59,7 +59,7 @@ def read_config(config_file):
     config_env = json.loads(string)
 
     env = config_env.copy()
-    env.update(base_env)
+    env.update(base_env)'''
 
     class Args:
         pass
@@ -70,59 +70,59 @@ def read_config(config_file):
         logging.error("Configuration error. WATCH_DIR must be defined.")
         sys.exit(1)
 
-    if not os.path.isdir(env["WATCH_DIR"]):
+    if not os.path.isdir(os.environ["WATCH_DIR"]):
         logging.error("Configuration error. WATCH_DIR must be a directory.")
         sys.exit(1)
-    args.watch_dir = env["WATCH_DIR"]
+    args.watch_dir = os.environ["WATCH_DIR"]
 
-    if "SETTLE_DURATION" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", env["SETTLE_DURATION"]):
+    if "SETTLE_DURATION" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", os.environ["SETTLE_DURATION"]):
         logging.error("Configuration error. SETTLE_DURATION must be defined as HH:MM:SS or MM:SS or SS.")
         sys.exit(1)
-    args.settle_duration = to_seconds(env["SETTLE_DURATION"])
+    args.settle_duration = to_seconds(os.environ["SETTLE_DURATION"])
 
-    if "MAX_WAIT_TIME" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", env["MAX_WAIT_TIME"]):
+    if "MAX_WAIT_TIME" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", os.environ["MAX_WAIT_TIME"]):
         logging.error("Configuration error. MAX_WAIT_TIME must be defined as HH:MM:SS or MM:SS or SS.")
         sys.exit(1)
-    args.max_wait_time = to_seconds(env["MAX_WAIT_TIME"])
+    args.max_wait_time = to_seconds(os.environ["MAX_WAIT_TIME"])
 
     if args.settle_duration > args.max_wait_time:
         logging.error("Configuration error. SETTLE_DURATION cannot be greater than MAX_WAIT_TIME.")
         sys.exit(1)
 
-    if "MIN_PERIOD" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", env["MIN_PERIOD"]):
+    if "MIN_PERIOD" not in env or not re.match("([0-9]{1,2}:){0,2}[0-9]{1,2}", os.environ["MIN_PERIOD"]):
         logging.error("Configuration error. MIN_PERIOD must be defined as HH:MM:SS or MM:SS or SS.")
         sys.exit(1)
-    args.min_period = to_seconds(env["MIN_PERIOD"])
+    args.min_period = to_seconds(os.environ["MIN_PERIOD"])
 
-    if "USER_ID" not in env or not re.match("[0-9]{1,}", env["USER_ID"]):
+    if "USER_ID" not in env or not re.match("[0-9]{1,}", os.environ["USER_ID"]):
         logging.error("Configuration error. USER_ID must be a whole number.")
         sys.exit(1)
-    args.user_id = env["USER_ID"]
+    args.user_id = os.environ["USER_ID"]
 
-    if "GROUP_ID" not in env or not re.match("[0-9]{1,}", env["GROUP_ID"]):
+    if "GROUP_ID" not in env or not re.match("[0-9]{1,}", os.environ["GROUP_ID"]):
         logging.error("Configuration error. GROUP_ID must be a whole number.")
         sys.exit(1)
-    args.group_id = env["GROUP_ID"]
+    args.group_id = os.environ["GROUP_ID"]
 
     if "COMMAND" not in env:
         logging.error("Configuration error. COMMAND must be defined.")
         sys.exit(1)
-    args.command = env["COMMAND"]
+    args.command = os.environ["COMMAND"]
 
-    if "UMASK" not in env or not re.match("0[0-7]{3}", env["UMASK"]):
+    if "UMASK" not in env or not re.match("0[0-7]{3}", os.environ["UMASK"]):
         logging.error("Configuration error. UMASK must be defined as an octal 0### number.")
         sys.exit(1)
-    args.umask = env["UMASK"]
+    args.umask = os.environ["UMASK"]
 
-    if "DEBUG" in env and not re.match("[01]", env["DEBUG"]):
+    if "DEBUG" in env and not re.match("[01]", os.environ["DEBUG"]):
         logging.error("Configuration error. DEBUG must be defined as 0 or 1.")
         sys.exit(1)
-    args.debug = "DEBUG" in env and env["DEBUG"] == "1"
+    args.debug = "DEBUG" in env and os.environ["DEBUG"] == "1"
 
-    if "IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING" not in env or not re.match("[01]", env["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"]):
+    if "IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING" not in env or not re.match("[01]", os.environ["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"]):
         logging.error("Configuration error. IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING must be defined as 0 or 1.")
         sys.exit(1)
-    args.ignore_events_while_command_is_running = env["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"] == "1"
+    args.ignore_events_while_command_is_running = os.environ["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"] == "1"
 
     logging.info("CONFIGURATION:")
     logging.info("      WATCH_DIR=%s", args.watch_dir)
