@@ -46,7 +46,7 @@ def read_config():
 
     # Shenanigans to read docker env vars, and the bash format config file. I didn't want to ask them to change their
     # config files.
-    dump_command = '/usr/bin/python3 -c "import os, json;print(json.dumps(dict(os.environ)))"'
+    '''dump_command = '/usr/bin/python3 -c "import os, json;print(json.dumps(dict(os.environ)))"'
 
     pipe = subprocess.Popen(['/bin/bash', '-c', dump_command], stdout=subprocess.PIPE)
     string = pipe.stdout.read().decode('ascii')
@@ -56,10 +56,21 @@ def read_config():
     config_env = json.dumps(empty)
     
     env = config_env.copy()
-    env.update(base_env)
+    env.update(base_env)'''
 
     class Args:
         pass
+    
+    env["WATCH_DIR"] = os.environ["WATCH_DIR"]
+    env["SETTLE_DURATION"] = os.environ["SETTLE_DURATION"]
+    env["MAX_WAIT_TIME"] = os.environ["MAX_WAIT_TIME"]
+    env["MIN_PERIOD"] = os.environ["MIN_PERIOD"]
+    env["USER_ID"] = os.environ["USER_ID"]
+    env["GROUP_ID"] = os.environ["GROUP_ID"]
+    env["UMASK"] = os.environ["UMASK"]
+    env["DEBUG"] = os.environ["DEBUG"]
+    env["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"] = os.environ["IGNORE_EVENTS_WHILE_COMMAND_IS_RUNNING"]
+    
 
     args = Args()
 
