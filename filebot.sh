@@ -5,8 +5,8 @@
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-INPUT_DIR="/input"
-OUTPUT_DIR="/media"
+INPUT_DIR=%1
+OUTPUT_DIR=%2
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -15,14 +15,14 @@ QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u
 # Customize the renaming format here. For info on formatting: https://www.filebot.net/naming.html
 
 # Music/Eric Clapton/From the Cradle/05 - It Hurts Me Too.mp3
-MUSIC_FORMAT="Music/{n.$QUOTE_FIXER}/{album.$QUOTE_FIXER}/{media.TrackPosition.pad(2)} - {t.$QUOTE_FIXER}"
+MUSIC_FORMAT="MUSIC/{artist}/{album} ({y})/{pi.pad(2)} {t} - {artist} [{kbps}]"
 
 # Movies/Fight Club.mkv
-MOVIE_FORMAT="Movies/{n.$QUOTE_FIXER} {' CD'+pi}"
+MOVIE_FORMAT="MOVIES/{n} ({y}) [{vf}] [{source}] [{ac} {channels}]/{n}"
 
 # TV Shows/Game of Thrones/Season 05/Game of Thrones - S05E08 - Hardhome.mp4
 # TV Shows/Game of Thrones/Special/Game of Thrones - S00E11 - A Day in the Life.mp4
-SERIES_FORMAT="TV Shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{n} - {episode.special ? 'S00E'+special.pad(2) : s00e00} - {t.${QUOTE_FIXER}.replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}"
+SERIES_FORMAT="TV/{n}/Season {s.pad(2)}/{n} - {s00e00} - {t}"
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -30,9 +30,9 @@ SERIES_FORMAT="TV Shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{
 VERSION=5
 
 # See http://www.filebot.net/forums/viewtopic.php?t=215 for details on amc
-filebot -script files/scripts/amc.groovy -no-xattr --output "$OUTPUT_DIR" --log-file /files/amc.log --action copy --conflict auto \
+filebot -script files/scripts/amc.groovy -no-xattr --output "$OUTPUT_DIR" --log-file /files/amc.log --action move --conflict auto \
   -non-strict --def ut_dir="$INPUT_DIR" ut_kind=multi music=y deleteAfterExtract=y clean=y \
-  excludeList=/config/amc-exclude-list.txt $SUBTITLE_OPTION \
+  excludeList=/config/amc-exclude-list.txt \
   movieFormat="$MOVIE_FORMAT" musicFormat="$MUSIC_FORMAT" seriesFormat="$SERIES_FORMAT"
 
 if [ "$ALLOW_REPROCESSING" = "yes" ]; then
