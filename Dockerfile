@@ -47,7 +47,7 @@ chmod a+rwX /files/scripts
 RUN wget -O - https://github.com/barry-allen07/FB-Mod-Scripts/archive/master.tar.gz | tar xz -C /files/scripts --strip=1 "FB-Mod-Scripts-master" 
 
 # Add scripts. Make sure everything is executable
-COPY start.sh filebot.sh Watcher.py /files/
+COPY FileBot.conf start.sh filebot.sh Watcher.py /files/
 RUN chmod +x /files/Watcher.py
 RUN chmod +x /files/filebot.sh
 RUN chmod +x /files/start.sh
