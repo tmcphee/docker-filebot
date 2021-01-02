@@ -86,7 +86,7 @@ def RunScript():
     global RUN_SCRIPT_TRIGGER, watcher
     watcher.event_queue.empty()
     log_console("Starting script...")
-    p = Popen(["F:\DOWNLOADS\FILEBOT\FilebotScipt.bat", WATCH_PATH, OUTPUT_PATH])
+    p = Popen(["./filebot.sh", WATCH_PATH, OUTPUT_PATH])
     p.wait()
     RUN_SCRIPT_TRIGGER = False
 
