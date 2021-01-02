@@ -10,10 +10,10 @@ from subprocess import Popen
 MAX_WAIT_TIME = 10
 RUN_SCRIPT_TRIGGER = True
 LAST_TRIGGER_TIME = 0
-WATCH_PATH = "./input"
-OUTPUT_PATH = "./output"
-SCRIPT_PATH = "./config/filebot.sh"
-CONFIG_PATH = "./config/FileBot.conf"
+WATCH_PATH = "/input"
+OUTPUT_PATH = "/output"
+SCRIPT_PATH = "/config/filebot.sh"
+CONFIG_PATH = "/config/FileBot.conf"
 watcher = Observer()
 
 
