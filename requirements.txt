@@ -1,8 +1,1 @@
-setuptools
-watchdog
-PyYAML
-argh
-argparse
-pathtools
-
-
+watchdog==1.0.1
