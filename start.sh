@@ -33,6 +33,17 @@ if [ ! -f /config/filebot.sh ]
 		chmod a+wx /config/filebot.sh
 fi
 
+echo "$(ts) Checking for config/FileBot.conf"
+if [ ! -f /config/filebot.sh ]
+	then
+		echo "$(ts) Creating /config/FileBot.conf"
+		cp /files/filebot.sh /config/FileBot.conf
+		chmod a+wx /config/FileBot.conf
+	else
+		echo "$(ts) config/FileBot.conf Exists"
+		chmod a+wx /config/FileBot.conf
+fi
+
 # Set User mask
 umask $UMASK
 
