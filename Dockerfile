@@ -46,8 +46,11 @@ chmod a+rwX /files/scripts
 # Download the FileBot Scripts
 RUN wget -O - https://github.com/barry-allen07/FB-Mod-Scripts/archive/master.tar.gz | tar xz -C /files/scripts --strip=1 "FB-Mod-Scripts-master" 
 
+RUN apt-get install dos2unix -y
+
 # Add scripts. Make sure everything is executable
 COPY FileBot.conf start.sh filebot.sh Watcher.py /files/
+RUN dos2unix /files/Watcher.py
 RUN chmod +x /files/Watcher.py
 RUN chmod +x /files/filebot.sh
 RUN chmod +x /files/start.sh
