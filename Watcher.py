@@ -11,6 +11,8 @@ RUN_SCRIPT_TRIGGER = True
 LAST_TRIGGER_TIME = 0
 WATCH_PATH = "./input"
 OUTPUT_PATH = "./output"
+SCRIPT_PATH = "./config/filebot.sh"
+CONFIG_PATH = "./config/FileBot.conf"
 watcher = Observer()
 
 
@@ -47,7 +49,7 @@ def configure():
         WATCH_PATH = sys.argv[0]
 
     try:
-        f = open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "FileBot.conf"), "r")
+        f = open(CONFIG_PATH, "r")
         for x in f.readlines():
             if "MAX_WAIT_TIME" in x:
                 MAX_WAIT_TIME = int(x.split("=")[1].replace('\n', ''))
@@ -87,7 +89,7 @@ def RunScript():
     global RUN_SCRIPT_TRIGGER, watcher
     watcher.event_queue.empty()
     log_console("Starting script...")
-    p = Popen(["./filebot.sh", WATCH_PATH, OUTPUT_PATH])
+    p = Popen([SCRIPT_PATH, WATCH_PATH, OUTPUT_PATH])
     p.wait()
     RUN_SCRIPT_TRIGGER = False
 
