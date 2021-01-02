@@ -42,4 +42,4 @@ umask $UMASK
 
 # Start monitoring
 echo "$(ts) Starting FileBot Dir watcher"
-python /files/Watcher.py
+/files/Watcher.py
