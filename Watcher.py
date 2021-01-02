@@ -1,6 +1,7 @@
 import sys
 import time
 import datetime
+import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from subprocess import Popen
@@ -46,7 +47,7 @@ def configure():
         WATCH_PATH = sys.argv[0]
 
     try:
-        f = open("FileBot.conf", "r")
+        f = open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "FileBot.conf"), "r")
         for x in f.readlines():
             if "MAX_WAIT_TIME" in x:
                 MAX_WAIT_TIME = int(x.split("=")[1].replace('\n', ''))
