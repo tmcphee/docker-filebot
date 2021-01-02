@@ -27,7 +27,7 @@ if [ ! -f /config/filebot.sh ]
 fi
 
 echo "$(ts) Checking for config/FileBot.conf"
-if [ ! -f /config/filebot.sh ]
+if [ ! -f /config/FileBot.conf ]
 	then
 		echo "$(ts) Creating /config/FileBot.conf"
 		cp /files/filebot.sh /config/FileBot.conf
