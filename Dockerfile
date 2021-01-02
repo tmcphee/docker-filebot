@@ -5,15 +5,18 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /usr/share/man/man1 /usr/share/man/man2
 
+# Install Java
 RUN apt-get update && \
 apt-get install -y --no-install-recommends openjdk-11-jre
 
 RUN apt-get install wget -y
 
+# Download the FileBot Application
 RUN wget --no-check-certificate -q -O filebot.deb \
 'https://github.com/barry-allen07/FB-Mod/releases/download/4.8.5/FileBot_4.8.5_amd64.deb' && \
 dpkg -i filebot.deb && rm filebot.deb
 
+# Install Python
 RUN apt-get install python3 -y
 RUN apt-get install python3-pip -y
 RUN python3 --version
@@ -44,9 +47,9 @@ chmod a+rwX /files/scripts
 RUN wget -O - https://github.com/barry-allen07/FB-Mod-Scripts/archive/master.tar.gz | tar xz -C /files/scripts --strip=1 "FB-Mod-Scripts-master" 
 
 # Add scripts. Make sure everything is executable
-COPY start.sh monitor.sh filebot.sh monitor.py /files/
-RUN chmod a+x /files/start.sh
-RUN chmod +x /files/monitor.py
+COPY filebot.sh Watcher.py /files/
+RUN chmod +x /files/Watcher.py
+RUN chmod +x /files/filebot.sh
 
-ENTRYPOINT ["./files/start.sh"]
+ENTRYPOINT ["python ./files/Watcher.py"]
 
