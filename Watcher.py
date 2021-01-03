@@ -21,11 +21,13 @@ def log_console(string):
     d = datetime.datetime.now()
     print(d.strftime("%m-%d-%Y %H:%M:%S") + " -> " + string)
 
+
 def get_wdir_size():
     dsize = 0
-    for files in os.walk(WATCH_PATH):
-        for file in files:
-            dsize += os.path.getsize(file)
+    for dirpath, dirnames, files in os.walk(WATCH_PATH):
+        for i in files:
+            filename = os.path.join(dirpath, i)
+            dsize += os.path.getsize(filename)
     return dsize
 
 
@@ -40,6 +42,7 @@ def WAIT_FOR_STABILIZE():
             return
         else:
             currentsize = nowsize
+
 
 class Handler(FileSystemEventHandler):
     def on_any_event(self, event):
@@ -138,3 +141,4 @@ if __name__ == '__main__':
         observer.stop()
     observer.join()
 
+    
