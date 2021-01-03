@@ -21,6 +21,24 @@ def log_console(string):
     d = datetime.datetime.now()
     print(d.strftime("%m-%d-%Y %H:%M:%S") + " -> " + string)
 
+def get_wdir_size():
+    dsize = 0
+    for files in os.walk(WATCH_PATH):
+        for file in files:
+            dsize += os.path.getsize(file)
+    return dsize
+
+
+def WAIT_FOR_STABILIZE():
+    currentsize = get_wdir_size()
+    nowsize = get_wdir_size()
+    while currentsize < nowsize:
+        time.sleep(10)
+        nowsize = get_wdir_size()
+        if currentsize >= nowsize:
+            return
+        else:
+            currentsize = nowsize
 
 class Handler(FileSystemEventHandler):
     def on_any_event(self, event):
@@ -71,6 +89,7 @@ def configure():
 def DirChanged():
     global RUN_SCRIPT_TRIGGER, LAST_TRIGGER_TIME
     Wait()
+    WAIT_FOR_STABILIZE()
     RunScript()
     log_console("Waiting for new change...")
 
