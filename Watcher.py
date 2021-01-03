@@ -30,6 +30,7 @@ def get_wdir_size():
 
 
 def WAIT_FOR_STABILIZE():
+    log_console("Waiting for directitory to stabilize...")
     currentsize = get_wdir_size()
     nowsize = get_wdir_size()
     while currentsize < nowsize:
