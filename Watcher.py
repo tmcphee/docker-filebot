@@ -10,6 +10,8 @@ from subprocess import Popen
 MAX_WAIT_TIME = 60
 RUN_SCRIPT_TRIGGER = True
 LAST_TRIGGER_TIME = 0
+LAST_EVENT_TIME = 0
+STORED_EVENT_TIME = 0
 WATCH_PATH = "./input"
 OUTPUT_PATH = "./output"
 SCRIPT_PATH = "/config/filebot.sh"
@@ -33,8 +35,9 @@ def get_wdir_size():
 
 
 def WAIT_FOR_STABILIZE():
-    '''log_console("Waiting for directory to stabilize...")
-    currentsize = get_wdir_size()
+    global STORED_EVENT_TIME, LAST_EVENT_TIME
+    log_console("Waiting for directory to stabilize...")
+    '''currentsize = get_wdir_size()
     time.sleep(10)
     nowsize = get_wdir_size()
     log_console("1 - CS: " + str(currentsize) + "    NS: " + str(nowsize))
@@ -47,25 +50,33 @@ def WAIT_FOR_STABILIZE():
         else:
             currentsize = nowsize
         time.sleep(5)'''
-    historicalSize = -1
+    '''historicalSize = -1
     while historicalSize != os.path.getsize(WATCH_PATH):
         historicalSize = os.stat(WATCH_PATH).st_size
         #print("Size now %s" % historicalSize)
+        time.sleep(10)'''
+    STORED_EVENT_TIME = LAST_EVENT_TIME
+    time.sleep(10)
+    while STORED_EVENT_TIME < LAST_EVENT_TIME:
+        STORED_EVENT_TIME = LAST_EVENT_TIME
         time.sleep(10)
 
 
 class Handler(FileSystemEventHandler):
     def on_any_event(self, event):
-        global RUN_SCRIPT_TRIGGER
+        global RUN_SCRIPT_TRIGGER, LAST_EVENT_TIME
         if event.is_directory:
             return None
 
         elif event.event_type == 'created':
             RUN_SCRIPT_TRIGGER = True
+            LAST_EVENT_TIME = time.time()
         elif event.event_type == 'modified':
             RUN_SCRIPT_TRIGGER = True
+            LAST_EVENT_TIME = time.time()
         elif event.event_type == 'moved':
             RUN_SCRIPT_TRIGGER = True
+            LAST_EVENT_TIME = time.time()
 
 
 def configure():
@@ -157,5 +168,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
-
+    
     
