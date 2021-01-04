@@ -61,13 +61,10 @@ class Handler(FileSystemEventHandler):
             return None
 
         elif event.event_type == 'created':
-            log_console("created")
             RUN_SCRIPT_TRIGGER = True
         elif event.event_type == 'modified':
-            log_console("modified")
             RUN_SCRIPT_TRIGGER = True
         elif event.event_type == 'moved':
-            log_console("moved")
             RUN_SCRIPT_TRIGGER = True
 
 
