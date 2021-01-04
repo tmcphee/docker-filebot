@@ -37,24 +37,6 @@ def get_wdir_size():
 def WAIT_FOR_STABILIZE():
     global STORED_EVENT_TIME, LAST_EVENT_TIME
     log_console("Waiting for directory to stabilize...")
-    '''currentsize = get_wdir_size()
-    time.sleep(10)
-    nowsize = get_wdir_size()
-    log_console("1 - CS: " + str(currentsize) + "    NS: " + str(nowsize))
-    while currentsize < nowsize:
-        time.sleep(5)
-        log_console("2 - CS: " + str(currentsize) + "    NS: " + str(nowsize))
-        nowsize = get_wdir_size()
-        if currentsize >= nowsize:
-            return
-        else:
-            currentsize = nowsize
-        time.sleep(5)'''
-    '''historicalSize = -1
-    while historicalSize != os.path.getsize(WATCH_PATH):
-        historicalSize = os.stat(WATCH_PATH).st_size
-        #print("Size now %s" % historicalSize)
-        time.sleep(10)'''
     STORED_EVENT_TIME = LAST_EVENT_TIME
     time.sleep(10)
     while STORED_EVENT_TIME < LAST_EVENT_TIME:
@@ -143,6 +125,7 @@ def RunScript():
     log_console("Starting script...")
     p = Popen([SCRIPT_PATH, WATCH_PATH, OUTPUT_PATH])
     p.wait()
+    p.kill()
     RUN_SCRIPT_TRIGGER = False
 
 
