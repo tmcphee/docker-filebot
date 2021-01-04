@@ -21,7 +21,7 @@ watcher = Observer()
 
 def log_console(string):
     d = datetime.datetime.now()
-    print(d.strftime("%m-%d-%Y %H:%M:%S") + " -> " + string)
+    print(d.strftime("%m-%d-%Y %H:%M:%S") + " -> " + string, flush=True)
 
 
 def get_wdir_size():
