@@ -7,11 +7,11 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from subprocess import Popen
 
-MAX_WAIT_TIME = 10
+MAX_WAIT_TIME = 60
 RUN_SCRIPT_TRIGGER = True
 LAST_TRIGGER_TIME = 0
-WATCH_PATH = "/input"
-OUTPUT_PATH = "/output"
+WATCH_PATH = "./input"
+OUTPUT_PATH = "./output"
 SCRIPT_PATH = "/config/filebot.sh"
 CONFIG_PATH = "/config/FileBot.conf"
 watcher = Observer()
@@ -27,21 +27,31 @@ def get_wdir_size():
     for dirpath, dirnames, files in os.walk(WATCH_PATH):
         for i in files:
             filename = os.path.join(dirpath, i)
-            dsize += os.path.getsize(filename)
+            dsize += os.stat(filename).st_size
+    log_console(str(dsize))
     return dsize
 
 
 def WAIT_FOR_STABILIZE():
-    log_console("Waiting for directitory to stabilize...")
+    '''log_console("Waiting for directory to stabilize...")
     currentsize = get_wdir_size()
+    time.sleep(10)
     nowsize = get_wdir_size()
+    log_console("1 - CS: " + str(currentsize) + "    NS: " + str(nowsize))
     while currentsize < nowsize:
-        time.sleep(10)
+        time.sleep(5)
+        log_console("2 - CS: " + str(currentsize) + "    NS: " + str(nowsize))
         nowsize = get_wdir_size()
         if currentsize >= nowsize:
             return
         else:
             currentsize = nowsize
+        time.sleep(5)'''
+    historicalSize = -1
+    while historicalSize != os.path.getsize(WATCH_PATH):
+        historicalSize = os.stat(WATCH_PATH).st_size
+        #print("Size now %s" % historicalSize)
+        time.sleep(10)
 
 
 class Handler(FileSystemEventHandler):
@@ -51,25 +61,28 @@ class Handler(FileSystemEventHandler):
             return None
 
         elif event.event_type == 'created':
+            log_console("created")
             RUN_SCRIPT_TRIGGER = True
         elif event.event_type == 'modified':
+            log_console("modified")
             RUN_SCRIPT_TRIGGER = True
         elif event.event_type == 'moved':
+            log_console("moved")
             RUN_SCRIPT_TRIGGER = True
 
 
 def configure():
     global MAX_WAIT_TIME, WATCH_PATH, OUTPUT_PATH
 
-    if len(sys.argv) == 1:
-        WATCH_PATH = sys.argv[0]
     if len(sys.argv) == 2:
-        MAX_WAIT_TIME = int(sys.argv[1])
-        WATCH_PATH = sys.argv[0]
+        WATCH_PATH = sys.argv[1]
     if len(sys.argv) == 3:
-        OUTPUT_PATH = sys.argv[2]
-        MAX_WAIT_TIME = int(sys.argv[1])
-        WATCH_PATH = sys.argv[0]
+        MAX_WAIT_TIME = int(sys.argv[2])
+        WATCH_PATH = sys.argv[1]
+    if len(sys.argv) == 4:
+        OUTPUT_PATH = sys.argv[3]
+        MAX_WAIT_TIME = int(sys.argv[2])
+        WATCH_PATH = sys.argv[1]
 
     try:
         f = open(CONFIG_PATH, "r")
@@ -83,6 +96,13 @@ def configure():
         f.close()
     except IOError:
         log_console("Config File does not exist")
+
+    if not os.path.exists(WATCH_PATH):
+        log_console("WATCH PATH NOT VALID")
+        return
+    if not os.path.exists(OUTPUT_PATH):
+        log_console("OUTPUT PATH NOT VALID")
+        return
     log_console("**********CONFIGURATION**********")
     log_console("MAX_WAIT_TIME = " + str(MAX_WAIT_TIME) + " seconds")
     log_console("WATCH_PATH = " + str(WATCH_PATH))
@@ -111,7 +131,7 @@ def Wait():
 
 def RunScript():
     global RUN_SCRIPT_TRIGGER, watcher
-    watcher.event_queue.empty()
+    #watcher.event_queue.empty()
     log_console("Starting script...")
     p = Popen([SCRIPT_PATH, WATCH_PATH, OUTPUT_PATH])
     p.wait()
