@@ -1,0 +1,11 @@
+services:
+  docker-filebot:
+    container_name: filebot
+    volumes:
+      - ./config:/config
+      - ./input:/usr/input
+      - ./movies:/usr/output/movies
+      - ./tv_shows:/usr/output/tv_shows
+      - ./music:/usr/output/music
+      - ./reports:/usr/output/reports
+    image: tmcphee/docker-filebot

@@ -30,7 +30,7 @@ echo "$(ts) Checking for config/FileBot.conf"
 if [ ! -f /config/FileBot.conf ]
 	then
 		echo "$(ts) Creating /config/FileBot.conf"
-		cp /files/filebot.sh /config/FileBot.conf
+		cp /files/FileBot.conf /config/FileBot.conf
 		chmod a+wx /config/FileBot.conf
 	else
 		echo "$(ts) config/FileBot.conf Exists"
